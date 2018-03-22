@@ -1,7 +1,64 @@
 ember-routing-components
 ==============================================================================
 
-[Short description of the addon.]
+Components for declaring your routes in hbs component files instead
+
+Use like so:
+
+```hbs
+{{#routing-map uri=uri change=(action 'change') as |map|}}
+  {{#map.route 'foot' renders=(component 'foot-route') as |map|}}
+    {{map.route 'bark' renders=(component 'foot-route/bark-route')}}
+  {{/map.route}}
+
+  {{map.route 'bast' path=':id' renders=(component 'bast-route')}}
+{{/routing-map}}
+```
+
+Now, build your routes as components!:
+
+`app/components/foot-route/component.js`
+```javascript
+import { routeable } from 'ember-routing-component';
+import Component from '@ember/component';
+
+export default routeable(Component.extend({
+  /**
+  // The `routeable` function forces your route
+  // to be tagless, so don't attach classes and stuff to them!
+  tagName: '',
+  */
+  didInsertElement() {
+    // this hook is fired when this route is active
+  },
+
+  willDestroyElement() {
+    // this hook will be fired when the route is deactivated
+  },
+
+  actions: {
+    clickedButton(routeName) {
+      // The `routing` object is given to the component
+      // via the `routeable` function
+      this.get('routing').transitionTo(routeName);
+    }
+  }
+}));
+```
+
+Write your templates as you normally would!
+
+`app/components/foot-route/template.hbs`
+```hbs
+{{#data-connect/foot-route as |model|}}
+  {{#presentation/foot-route model=model}}
+    {{yield}}
+  {{/presentation/foot-route}}
+{{/data-connect/foot-route}}
+```
+Instead of `{{outlet}}`, use `{{yield}}` to accomplish the same thing.
+
+Notice that this usage allows us to separate routing from data connection from presentation.
 
 Installation
 ------------------------------------------------------------------------------
