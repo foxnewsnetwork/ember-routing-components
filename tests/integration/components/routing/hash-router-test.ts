@@ -3,22 +3,22 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | routing-map/-route', function(hooks) {
+module('Integration | Component | routing/hash-router', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`{{routing-map/-route}}`);
+    await render(hbs`{{routing/hash-router}}`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#routing-map/-route}}
+      {{#routing/hash-router}}
         template block text
-      {{/routing-map/-route}}
+      {{/routing/hash-router}}
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

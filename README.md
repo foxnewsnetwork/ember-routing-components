@@ -1,18 +1,18 @@
 ember-routing-components
 ==============================================================================
 
-Components for declaring your routes in hbs component files instead
+Heavily inspired (nay, straight up shamelessly ported over from the [react router](https://reacttraining.com/react-router/web/guides/philosophy)), we now declare our routes dynamically with components in hbs in ember.
 
 Use like so:
 
 ```hbs
-{{#routing-map uri=uri change=(action 'change') as |map|}}
-  {{#map.route 'foot' renders=(component 'foot-route') as |map|}}
-    {{map.route 'bark' renders=(component 'foot-route/bark-route')}}
-  {{/map.route}}
+{{#router-map uri=uri check=checkActiveFn change=(action 'change') as |router|}}
+  {{#router.route 'foot' renders=(component 'foot-route') as |router|}}
+    {{router.route 'bark' renders=(component 'foot-route/bark-route')}}
+  {{/router.route}}
 
-  {{map.route 'bast' path=':id' renders=(component 'bast-route')}}
-{{/routing-map}}
+  {{router.route 'bast' path=':id' renders=(component 'bast-route')}}
+{{/router-map}}
 ```
 
 Now, build your routes as components!:

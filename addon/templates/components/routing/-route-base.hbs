@@ -1,0 +1,18 @@
+{{yield
+  (hash
+    route=(component
+      'routing/-route-base'
+      childRouteBase
+      check
+      parse
+      change
+      isActive
+    )
+  )
+}}
+
+{{#if renders}}
+  {{#if isActive}}
+    {{component renders}}
+  {{/if}}
+{{/if}}

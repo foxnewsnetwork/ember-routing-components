@@ -1,7 +1,7 @@
 import ComputedProperty from "@ember/object/computed";
 import EmberObject, { computed, getProperties } from "@ember/object";
 
-type TransformFn<T> = (...args: Array<string>) => T;
+type TransformFn<T> = (...args: Array<any>) => T;
 
 export function thru<T>(depKeys: Array<string>, compFn: TransformFn<T>): ComputedProperty<T> {
   function getFn(this): T {
