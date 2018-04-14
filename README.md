@@ -5,60 +5,62 @@ Heavily inspired (nay, straight up shamelessly ported over from the [react route
 
 Use like so:
 
+## Actual Usage
+
+Consider the following example that emulates a typical `window.location`-based ember app
+
 ```hbs
-{{#router-map uri=uri check=checkActiveFn change=(action 'change') as |router|}}
-  {{#router.route 'foot' renders=(component 'foot-route') as |router|}}
-    {{router.route 'bark' renders=(component 'foot-route/bark-route')}}
-  {{/router.route}}
+{{#routing/endpoint-ember locationType='auto' rootURL=rootURL as |app-state app-actions|}}
+  {{#app-state.route 'home' as |home-state home-actions|}}
+    {{home-page
+      openOptions=(action home-actions.transitionTo 'options')
+      transitionToProduct=(action app-actions.transitionTo 'product')}}
+    {{#home-state.route 'options'}}
+      {{home-options-page
+        closeOptions=(action home-actions.transitionTo 'index')}}
+    {{/home-state.route}}
+  {{/app-state.route}}
 
-  {{router.route 'bast' path=':id' renders=(component 'bast-route')}}
-{{/router-map}}
+  {{#app-state.route 'product' ':id'}}
+    {{product-page}}
+  {{/app-state.route}}
+{{/routing/endpoint-ember}}
 ```
 
-Now, build your routes as components!:
+## Endpoints
 
-`app/components/foot-route/component.js`
-```javascript
-import { routeable } from 'ember-routing-component';
-import Component from '@ember/component';
+Endpoints are, well, endpoints in the app - specifically where the routing systems comes into contact with where the route information is stored. This library is agnostic to exactly how you'd like to store your state, but we do provide a hopefully sensible API for interfacing with it.
 
-export default routeable(Component.extend({
-  /**
-  // The `routeable` function forces your route
-  // to be tagless, so don't attach classes and stuff to them!
-  tagName: '',
-  */
-  didInsertElement() {
-    // this hook is fired when this route is active
-  },
+Consider the usage of the `endpoint-base` component for an idea of just how "little" it does:
 
-  willDestroyElement() {
-    // this hook will be fired when the route is deactivated
-  },
-
-  actions: {
-    clickedButton(routeName) {
-      // The `routing` object is given to the component
-      // via the `routeable` function
-      this.get('routing').transitionTo(routeName);
-    }
-  }
-}));
-```
-
-Write your templates as you normally would!
-
-`app/components/foot-route/template.hbs`
 ```hbs
-{{#data-connect/foot-route as |model|}}
-  {{#presentation/foot-route model=model}}
-    {{yield}}
-  {{/presentation/foot-route}}
-{{/data-connect/foot-route}}
+{{#routing/endpoint-base state=state checkActiveFn=checkActiveFn update=(action 'dispatchTransition') as |app-state app-actions|}}
+  {{! same as before}}
+{{/routing/endpoint-base}}
 ```
-Instead of `{{outlet}}`, use `{{yield}}` to accomplish the same thing.
 
-Notice that this usage allows us to separate routing from data connection from presentation.
+## Deep Dive
+
+Let's take a look at the lowest level of how routes are implemented
+
+```hbs
+{{#routing/call-fn2 HOME currentRoute checkActiveFn as |state|}}  
+  {{#if state.activeState}}
+    {{#some-component as |shouldRedirect|}}
+      {{#if shouldRedirect}}
+        {{#routing/did-load (action 'affectTransition' PRODUCT.INDEX)}}
+      {{/if}}
+    {{/some-component}}
+  {{/if}}
+{{/routing/call-fn2}}
+```
+
+Fundamentally, the kernel of routing is to check if two objects equal to each other, then return that result. Then decide to do something with that result - i.e. affecting an action via it is true. Notice that, at the core, we are agnostic about:
+
+- What types `Home`, `currentRoute`, and `checkActiveFn` actually are
+- How `action 'affectTransition` actually handles a transition
+
+This typing allows us to be *extremely* flexible with dealing with how we represent our "upstream" router data store, thus enabling us to support everything from traditional Ember URL-based location to redux location stores to perhaps even some weird stream-based "bespoke" stream based implemenetation
 
 Installation
 ------------------------------------------------------------------------------
