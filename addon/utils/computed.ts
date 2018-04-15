@@ -1,18 +1,21 @@
-import ComputedProperty from "@ember/object/computed";
-import EmberObject, { computed, getProperties } from "@ember/object";
+import ComputedProperty  from "@ember/object/computed";
+import { computed, get } from "@ember/object";
 
-type TransformFn<T> = (...args: Array<any>) => T;
+type Fn3<A, B, C, D> = (a: A, b: B, c: C) => D;
 
-export function thru<T>(depKeys: Array<string>, compFn: TransformFn<T>): ComputedProperty<T> {
-  function getFn(this): T {
-    const depVals = getProperties(this, depKeys);
-    const compVals = depKeys.reduce((acc: Array<any>, key: string): Array<any> => {
-      acc.push(depVals[key]);
-      return acc;
-    }, []);
+export function thru3<T, O>(
+  a: keyof T, 
+  b: keyof T, 
+  c: keyof T, 
+  fn: Fn3<T[keyof T], T[keyof T], T[keyof T], O>
+): ComputedProperty<O> {
+  return computed(a, b, c, {
+    get(this: T) {
+      const valA = get(this, a);
+      const valB = get(this, b);
+      const valC = get(this, c);
 
-    return compFn(...compVals);
-  }
-  // @ts-ignore: Ignore failure of ember typescript to splat arrays
-  return computed<T>(...depKeys, getFn).readOnly();
+      return fn(valA, valB, valC);
+    }
+  }).readOnly();
 }

@@ -45,7 +45,7 @@ Let's take a look at the lowest level of how routes are implemented
 
 ```hbs
 {{#routing/call-fn2 HOME currentRoute checkActiveFn as |state|}}  
-  {{#if state.activeState}}
+  {{#if state.result}}
     {{#some-component as |shouldRedirect|}}
       {{#if shouldRedirect}}
         {{#routing/did-load (action 'affectTransition' PRODUCT.INDEX)}}
