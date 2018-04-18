@@ -1,1 +1,8 @@
-{{yield}}
+{{#call-fn2 state routeId checkActive as |isActive|}}
+  {{yield
+    (hash
+      isActive=isActive
+      route=(component 'routing/-route' state checkActive update)
+    )
+  }}
+{{/call-fn2}}

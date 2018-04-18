@@ -7,7 +7,7 @@ export default class RoutingRoute<T, ID> extends Component.extend({
   // anything which *must* be merged to prototype here
   tagName: ''
 }).reopenClass({
-  positionalParams: ['routeId', 'state', 'checkActive', 'update']
+  positionalParams: ['state', 'checkActive', 'update', 'routeId']
 }) implements RouteLike<T, ID> {
   layout = layout;
   // normal class body definition here
