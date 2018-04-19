@@ -7,7 +7,7 @@ export default class RoutingDidLoad extends Component.extend({
 }) {
   action: () => void;
 
-  didInsertElement() {
+  public didInsertElement(this: RoutingDidLoad) {
     this.action();
   }
 };

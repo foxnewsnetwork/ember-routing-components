@@ -1,5 +1,8 @@
 {{yield
   (hash
-    route=(component 'routing/-route' state checkActive update)
+    route=(component 'routing/-route' state checkActive redirect)
+  )
+  (hash
+    redirect=(component 'routing/transition-to' null redirect)
   )
 }}

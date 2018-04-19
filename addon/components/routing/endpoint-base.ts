@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 // @ts-ignore: Ignore import of compiled template
 import layout from '../../templates/components/routing/endpoint-base';
-import { RouteLike, defaultCheckActive, defaultUpdate } from 'ember-routing-components/utils/route-like';
+import { RouteLike, defaultCheckActive, defaultRedirect } from 'ember-routing-components/utils/route-like';
 
 export default class RoutingEndpointBase<T, ID> extends Component.extend({
   // anything which *must* be merged to prototype here
@@ -14,5 +14,5 @@ export default class RoutingEndpointBase<T, ID> extends Component.extend({
 
   checkActive = defaultCheckActive;
 
-  update = defaultUpdate;
+  redirect = defaultRedirect;
 };

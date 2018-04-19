@@ -2,7 +2,10 @@
   {{yield
     (hash
       isActive=isActive
-      route=(component 'routing/-route' state checkActive update)
+      route=(component 'routing/-route' state checkActive redirect)
+    )
+    (hash
+      redirect=(component 'routing/-redirect' routeId redirect)
     )
   }}
 {{/call-fn2}}
