@@ -1,23 +1,17 @@
-import { thru3 } from 'ember-routing-components/utils/computed';
+import { apfn } from 'ember-routing-components/utils/computed';
 import { module, test } from 'qunit';
 import EmberObject, { get, set } from '@ember/object';
 
-const plus = (a: number, c: number): number => a + c;
+const plus4 = (a: number): number => a + 4;
 
 module('Unit | Utility | computed', (hooks) => {
 
-  module('thru3', (hooks) => {
+  module('apfn', (hooks) => {
     class TestObject extends EmberObject {
       dog: number = 1;
-      cat: number = 2;
-      plus = plus;
+      fn = plus4;
 
-      result = thru3<TestObject, number>(
-        'dog',
-        'cat',
-        'plus',
-        (dog, cat, plus) => plus(dog, cat)
-      )
+      result = apfn<TestObject, number>('dog');
     }
 
     let object;
@@ -26,18 +20,18 @@ module('Unit | Utility | computed', (hooks) => {
     });
 
     test('result', (assert) => {
-      assert.equal(get(object, 'result'), 3);
+      assert.equal(get(object, 'result'), 5);
     });
 
     module('resetting', (hooks) => {
       hooks.beforeEach(() => {
-        set(object, 'cat', 66);
+        set(object, 'dog', 66);
       });
 
       test('update', (assert) => {
         assert.equal(
           get(object, 'result'),
-          67
+          70
         );
       });
     });

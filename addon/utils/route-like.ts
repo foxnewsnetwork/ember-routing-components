@@ -1,18 +1,9 @@
-export type RedirectFn<ID> = (target: ID, parent?: ID) => void;
-export type CheckActiveFn<T, ID> = (state: T, routeId: ID) => boolean;
+export type RedirectFn<ID> = (...routeIds: ID[]) => void;
+export type CheckRouteFn<T, ID> = (state: T, ...routeIds: ID[]) => boolean;
+export type CheckActiveFn<ID> = (...routeIds: ID[]) => boolean;
+export type RedirectRouteFn<T, ID> = (state: T, ...routeIds: ID[]) => void;
 
-export interface RouteLike<T, ID> {
-  /**
-   * Passed in attribute
-   *
-   * The generate state of the routing system. In order to accommodate
-   * any possible routing strategy, we don't specify what your state must
-   * look like.
-   *
-   * @attr
-   */
-  state: T;
-
+export interface RouteLike<ID> {
   /**
    * Passed in attribute
    *
@@ -22,7 +13,7 @@ export interface RouteLike<T, ID> {
    *
    * @attr
    */
-  checkActive: CheckActiveFn<T, ID>;
+  checkActive: CheckActiveFn<ID>;
 
   /**
    * Passed in attribute
@@ -32,25 +23,4 @@ export interface RouteLike<T, ID> {
    * @attr
    */
   redirect: RedirectFn<ID>;
-}
-
-class ForgotToImplementCheckActiveFunctionError extends Error {
-  constructor(msg) {
-    super(msg);
-    this.name = 'ForgotToImplementCheckActiveFunctionError';
-  }
-}
-export function defaultCheckActive(state: any, routeID: any): never {
-  throw new ForgotToImplementCheckActiveFunctionError(`You forgot to implement the "checkActive" function on the route component "${routeID}"`);
-}
-
-class ForgotToImplementRedirectFunctionError extends Error {
-  constructor(msg) {
-    super(msg);
-    this.name = 'ForgotToImplementRedirectFunctionError';
-  }
-}
-
-export function defaultRedirect(routeId: any): never {
-  throw new ForgotToImplementRedirectFunctionError(`You forgot to implement the "redirect" function on route component "${routeId}"`);
 }

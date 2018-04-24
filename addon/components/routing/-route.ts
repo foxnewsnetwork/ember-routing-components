@@ -1,18 +1,16 @@
 import Component from '@ember/component';
+import { get } from '@ember/object';
 // @ts-ignore: Ignore import of compiled template
 import layout from '../../templates/components/routing/-route';
-import { RouteLike, defaultCheckActive, defaultRedirect } from 'ember-routing-components/utils/route-like';
+import { RouteLike, CheckActiveFn, RedirectFn } from 'ember-routing-components/utils/route-like';
 
-export default class RoutingRoute<T, ID> extends Component.extend({
+export default class RoutingRoute<ID> extends Component.extend({
   // anything which *must* be merged to prototype here
   tagName: ''
 }).reopenClass({
-  positionalParams: ['state', 'checkActive', 'redirect', 'routeId']
-}) implements RouteLike<T, ID> {
+  positionalParams: ['checkActive', 'redirect', 'routeId']
+}) implements RouteLike<ID> {
   layout = layout;
-  // normal class body definition here
-
-  state: T;
 
   /**
    * The uniquely identifying name of this route
@@ -27,7 +25,8 @@ export default class RoutingRoute<T, ID> extends Component.extend({
    * The associated check active function, used
    * to determine if this route is active or not
    */
-  checkActive = defaultCheckActive;
+  checkActive: CheckActiveFn<ID>;
 
-  redirect = defaultRedirect;
+  redirect: RedirectFn<ID>;
+
 };

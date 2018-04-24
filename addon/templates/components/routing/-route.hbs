@@ -1,11 +1,16 @@
-{{#call-fn2 state routeId checkActive as |isActive|}}
-  {{yield
-    (hash
-      isActive=isActive
-      route=(component 'routing/-route' state checkActive redirect)
-    )
-    (hash
-      redirect=(component 'routing/-redirect' routeId redirect)
-    )
-  }}
-{{/call-fn2}}
+{{#with (routing/curry-fn checkActive routeId) as |nextCheckActive|}}
+  {{#with (routing/curry-fn redirect routeId) as |nextRedirect|}}
+    {{#routing/call-fn routeId nextCheckActive as |isActive|}}
+      {{yield
+        (hash
+          isActive=isActive
+          route=(component 'routing/-route' nextCheckActive nextRedirect)
+          redirect=(component 'routing/-redirect' nextRedirect)
+        )
+        (hash
+          redirect=nextRedirect
+        )
+      }}
+    {{/routing/call-fn}}
+  {{/with}}
+{{/with}}

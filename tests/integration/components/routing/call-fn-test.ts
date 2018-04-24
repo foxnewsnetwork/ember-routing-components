@@ -4,17 +4,16 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { TestContext } from 'ember-test-helpers';
 
-module('Integration | Component | routing/call-fn2', function(hooks) {
+module('Integration | Component | routing/call-fn', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(async function(this: TestContext) {
     this.set('arg1', 'dog');
-    this.set('arg2', 'cat');
-    this.set('joinFn', (a, b) => `${a} -+- ${b}`);
+    this.set('joinFn', (a) => `${a} -+- cat`);
     await render(hbs`
-      {{#routing/call-fn2 arg1 arg2 joinFn as |state|}}
+      {{#routing/call-fn arg1 joinFn as |state|}}
         {{state.result}}
-      {{/routing/call-fn2}}
+      {{/routing/call-fn}}
     `);
   });
 

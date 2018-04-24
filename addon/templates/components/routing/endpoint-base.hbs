@@ -1,8 +1,12 @@
-{{yield
-  (hash
-    route=(component 'routing/-route' state checkActive redirect)
-  )
-  (hash
-    redirect=(component 'routing/transition-to' null redirect)
-  )
-}}
+{{#routing/-route state (action checkRoute state) (action redirectRoute state) as |state actions|}}
+  {{yield
+    (hash
+      isActive=true
+      route=state.route
+      redirect=state.redirect
+    )
+    (hash
+      redirect=actions.redirect
+    )
+  }}
+{{/routing/-route}}

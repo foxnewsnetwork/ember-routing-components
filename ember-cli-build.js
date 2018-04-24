@@ -19,6 +19,7 @@ module.exports = function(defaults) {
       { transformation: 'cjs', as: 'sinon' }
     ]
   });
+  app.import('vendor/shims/sinon.js');
 
   return app.toTree();
 };
