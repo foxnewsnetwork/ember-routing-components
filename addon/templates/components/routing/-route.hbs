@@ -1,16 +1,26 @@
-{{#with (routing/curry-fn checkActive routeId) as |nextCheckActive|}}
-  {{#with (routing/curry-fn redirect routeId) as |nextRedirect|}}
-    {{#routing/call-fn routeId nextCheckActive as |isActive|}}
-      {{yield
-        (hash
-          isActive=isActive
-          route=(component 'routing/-route' nextCheckActive nextRedirect)
-          redirect=(component 'routing/-redirect' nextRedirect)
-        )
-        (hash
-          redirect=nextRedirect
-        )
-      }}
-    {{/routing/call-fn}}
-  {{/with}}
-{{/with}}
+{{#routing/let-ponyfill (routing/curry-fn checkActive name) as |nextCheckActive|}}
+  {{#routing/let-ponyfill (routing/curry-fn redirect name) as |nextRedirect|}}
+    {{#routing/let-ponyfill (routing/call-fn nextCheckActive) as |isActive|}}
+      {{#routing/let-ponyfill (routing/and isParentActive isActive) as |areWeActive|}}
+        {{yield
+          (hash
+            isActive=areWeActive
+            route=(component 
+              'routing/-route' 
+              isParentActive=areWeActive 
+              checkActive=nextCheckActive 
+              redirect=nextRedirect
+            )
+            redirect=(component 
+              'routing/-redirect' 
+              redirect=nextRedirect
+            )
+          )
+          (hash
+            redirect=nextRedirect
+          )
+        }}
+      {{/routing/let-ponyfill}}
+    {{/routing/let-ponyfill}}
+  {{/routing/let-ponyfill}}
+{{/routing/let-ponyfill}}

@@ -7,8 +7,6 @@ import { RouteLike, CheckActiveFn, RedirectFn } from 'ember-routing-components/u
 export default class RoutingRoute<ID> extends Component.extend({
   // anything which *must* be merged to prototype here
   tagName: ''
-}).reopenClass({
-  positionalParams: ['checkActive', 'redirect', 'routeId']
 }) implements RouteLike<ID> {
   layout = layout;
 
@@ -19,14 +17,15 @@ export default class RoutingRoute<ID> extends Component.extend({
    *
    * @attr
    */
-  routeId: ID;
+  public name: ID;
 
   /**
    * The associated check active function, used
    * to determine if this route is active or not
    */
-  checkActive: CheckActiveFn<ID>;
+  public checkActive: CheckActiveFn<ID>;
 
-  redirect: RedirectFn<ID>;
+  public redirect: RedirectFn<ID>;
 
+  public isParentActive: boolean;
 };

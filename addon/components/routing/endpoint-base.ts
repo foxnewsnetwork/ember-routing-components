@@ -15,4 +15,6 @@ export default class RoutingEndpointBase<T, ID> extends Component.extend({
   checkRoute: CheckRouteFn<T, ID>;
 
   redirectRoute: RedirectRouteFn<T, ID>;
+
+  name: ID;
 };

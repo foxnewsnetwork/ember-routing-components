@@ -21,11 +21,11 @@
     "postpublish": "ember ts:clean"
   },
   "dependencies": {
-    "ember-cli-babel": "^6.6.0",
-    "ember-cli-htmlbars": "^2.0.1"
+    "ember-cli-babel": "^6.12.0",
+    "ember-cli-htmlbars": "^2.0.3"
   },
   "devDependencies": {
-    "@types/ember": "^2.8.16",
+    "@types/ember": "^2.8.22",
     "@types/ember-qunit": "^3.0.1",
     "@types/ember-test-helpers": "^0.7.1",
     "@types/ember-testing-helpers": "0.0.3",
@@ -34,11 +34,11 @@
     "@types/sinon": "^4.3.1",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",
-    "ember-cli": "~3.0.2",
+    "ember-cli": "~3.1.2",
     "ember-cli-cjs-transform": "^1.1.1",
     "ember-cli-dependency-checker": "^2.0.0",
     "ember-cli-eslint": "^4.2.1",
-    "ember-cli-htmlbars-inline-precompile": "^1.0.0",
+    "ember-cli-htmlbars-inline-precompile": "^1.0.2",
     "ember-cli-inject-live-reload": "^1.4.1",
     "ember-cli-qunit": "^4.1.1",
     "ember-cli-shims": "^1.2.0",
@@ -50,7 +50,7 @@
     "ember-load-initializers": "^1.0.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-resolver": "^4.0.0",
-    "ember-source": "~3.0.0",
+    "ember-source": "~3.1.0",
     "ember-source-channel-url": "^1.0.1",
     "ember-try": "^0.2.23",
     "eslint-plugin-ember": "^5.0.0",

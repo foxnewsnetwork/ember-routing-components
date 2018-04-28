@@ -6,19 +6,10 @@ import { get } from '@ember/object';
 
 export default class RoutingRedirect<ID> extends Component.extend({
   tagName: ''
-}).reopenClass({
-  positionalParams: ['redirect', 'targetRouteId']
 }) {
   layout = layout;
 
-  targetRouteId: ID;
+  to: ID;
 
   redirect: RedirectFn<ID>;
-
-  public didInsertElement(this: RoutingRedirect<ID>) {
-    const redirect = get(this, 'redirect');
-    const targetRouteId = get(this, 'targetRouteId');
-
-    redirect(targetRouteId);
-  }
 };
