@@ -1,0 +1,20 @@
+{{#routing/let-ponyfill (routing/curry-fn checkRoute state) as |checkActive|}}
+  {{#routing/let-ponyfill (routing/curry-fn redirectRoute state) as |redirect|}}
+    {{#routing/let-ponyfill (routing/curry-fn checkActive name) as |checkSelf|}}
+      {{#routing/let-ponyfill (routing/call-fn checkSelf) as |areWeActive|}}
+        {{#routing/-route isParentActive=areWeActive checkActive=checkActive redirect=redirect name=name as |state actions|}}
+          {{yield
+            (hash
+              isActive=areWeActive
+              route=state.route
+              redirect=state.redirect
+            )
+            (hash
+              redirect=actions.redirect
+            )
+          }}
+        {{/routing/-route}}
+      {{/routing/let-ponyfill}}
+    {{/routing/let-ponyfill}}
+  {{/routing/let-ponyfill}}
+{{/routing/let-ponyfill}}

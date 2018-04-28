@@ -3,6 +3,10 @@ ember-routing-components
 
 Heavily inspired (nay, straight up shamelessly ported over from the [react router](https://reacttraining.com/react-router/web/guides/philosophy)), we now declare our routes dynamically with components in hbs in ember.
 
+Ember 3.1.0 can use out of the box
+
+Ember 3.0.0 and below must install the `ember-let` addon
+
 Use like so:
 
 ## Actual Usage

@@ -14,11 +14,8 @@ module.exports = function(defaults) {
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
 
-  app.import('node_modules/sinon/pkg/sinon.js', {
-    using: [
-      { transformation: 'cjs', as: 'sinon' }
-    ]
-  });
+  app.import('node_modules/sinon/pkg/sinon.js');
+  app.import('vendor/shims/sinon.js');
 
   return app.toTree();
 };
