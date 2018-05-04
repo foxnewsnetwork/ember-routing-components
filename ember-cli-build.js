@@ -17,5 +17,11 @@ module.exports = function(defaults) {
   app.import('node_modules/sinon/pkg/sinon.js');
   app.import('vendor/shims/sinon.js');
 
+  app.import('node_modules/redux-create-reducer/index.js', {
+    using: [
+      { transformation: 'cjs', as: 'redux-create-reducer' }
+    ]
+  });
+
   return app.toTree();
 };

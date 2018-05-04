@@ -1,7 +1,9 @@
-{{#routing-map uri=uri change=(action 'change') as |map|}}
-  {{#map.route 'foot' renders=(component 'foot-route') as |map|}}
-    {{map.route 'bark' renders=(component 'foot-route/bark-route')}}
-  {{/map.route}}
+{{#dummy/redux-anchor as |state actions|}}
+  {{#routing/endpoint-base
+    name='ROUTER#APP'
+    state=state.router
+    checkRoute=actions.checkRoute
+    redirectRoute=actions.redirectRoute as |app actions|}}
 
-  {{map.route 'bast' path=':id' renders=(component 'bast-route')}}
-{{/routing-map}}
+  {{/routing/endpoint-base}}
+{{/dummy/redux-anchor}}
