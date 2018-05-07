@@ -1,9 +1,13 @@
 {{#dummy/redux-anchor as |state actions|}}
   {{#routing/endpoint-base
-    name='ROUTER#APP'
-    state=state.router
+    name=(route-for 'APP')
+    state=state
     checkRoute=actions.checkRoute
-    redirectRoute=actions.redirectRoute as |app actions|}}
+    redirectRoute=actions.redirectRoute as |redux actions|}}
+    {{#if redux.isActive}}
+      {{partial 'routes/redux'}}
 
+      {{redux.redirect to=(route-for 'HOME')}}
+    {{/if}}
   {{/routing/endpoint-base}}
 {{/dummy/redux-anchor}}

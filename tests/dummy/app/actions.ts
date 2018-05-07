@@ -1,0 +1,4 @@
+export enum ActionName {
+  RESET_ROUTE = '@ROUTER#RESET_ROUTE',
+  ACTIVATE_ROUTE = '@ROUTER#ACTIVATE_ROUTE'
+}

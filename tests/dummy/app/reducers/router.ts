@@ -1,38 +1,41 @@
 import { createReducer, Action } from 'redux-create-reducer';
-
-export enum RouterKey {
-  APP = 'ROUTER#APP',
-  HOME = 'ROUTER#APP/HOME',
-  APPLE = 'ROUTER#APP/APPLE',
-  ORANGE = 'ROUTER#APP/ORANGE'
-}
-
-interface PageState {
-  isActive: boolean
-}
+import { RouteMap } from 'dummy/helpers/route-for';
+import { ActionName } from 'dummy/actions';
 
 export type RouterState = {
-  [RouterKey.HOME]: boolean,
-  [RouterKey.APPLE]: boolean,
-  [RouterKey.ORANGE]: boolean
+  [RouteMap.APP]: boolean,
+  [RouteMap.HOME]: boolean,
+  [RouteMap.HOME_INDEX]: boolean,
+  [RouteMap.HOME_ALT]: boolean,
+  [RouteMap.PRODUCT]: boolean,
+  [RouteMap.PRODUCT_DETAILS]: boolean,
+  [RouteMap.PRODUCT_REVIEWS]: boolean
 }
 
 const INITIAL_STATE: RouterState = {
-  [RouterKey.HOME]: false,
-  [RouterKey.APPLE]: false,
-  [RouterKey.ORANGE]: false
+  [RouteMap.APP]: true,
+  [RouteMap.HOME]: false,
+  [RouteMap.HOME_INDEX]: false,
+  [RouteMap.HOME_ALT]: false,
+  [RouteMap.PRODUCT]: false,
+  [RouteMap.PRODUCT_DETAILS]: false,
+  [RouteMap.PRODUCT_REVIEWS]: false,
 };
 
-export enum RouterAction {
-  CHANGE_ROUTE = '@ROUTER#CHANGE_ROUTE'
+interface ActivateAction extends Action {
+  key: RouteMap
 }
 
-interface ActivateAction extends Action {
-  key: RouterKey
+const xxx = (input, ...logs) => {
+  console.warn(...logs);
+  return input;
 }
 
 export default createReducer<RouterState>(INITIAL_STATE, {
-  [RouterAction.CHANGE_ROUTE](state: RouterState, action: ActivateAction): RouterState {
-    return { ...INITIAL_STATE, [action.key]: true };
+  [ActionName.RESET_ROUTE](state: RouterState, action: Action): RouterState {
+    return xxx(INITIAL_STATE, 'reducer/redux#reset', state);
+  },
+  [ActionName.ACTIVATE_ROUTE](state: RouterState, action: ActivateAction): RouterState {
+    return xxx({ ...state, [action.key]: true }, 'reducer/redux#activate:\n', action.key, '\nstate:\n', state);
   }
 });

@@ -1,0 +1,17 @@
+<h1>Redux App</h1>
+
+{{#redux.route name=(route-for 'HOME') as |home actions|}}
+  {{#if home.isActive}}
+    {{partial 'routes/redux/home'}}
+
+    {{home.redirect to=(route-for 'HOME_INDEX')}}
+  {{/if}}
+{{/redux.route}}
+
+{{#redux.route name=(route-for 'PRODUCT') as |product actions|}}
+  {{#if product.isActive}}
+    {{partial 'routes/redux/product'}}
+
+    {{product.redirect to=(route-for 'PRODUCT_DETAILS')}}
+  {{/if}}
+{{/redux.route}}

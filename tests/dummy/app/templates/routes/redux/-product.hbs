@@ -1,0 +1,17 @@
+<h2>Product</h2>
+
+{{#product.route name=(route-for 'PRODUCT_DETAILS') as |details actions|}}
+  {{#if details.isActive}}
+    {{partial 'routes/redux/product/details'}}
+  {{/if}}
+{{/product.route}}
+
+{{#product.route name=(route-for 'PRODUCT_REVIEWS') as |reviews actions|}}
+  {{#if reviews.isActive}}
+    {{partial 'routes/redux/product/reviews'}}
+  {{/if}}
+{{/product.route}}
+
+{{#dummy/-a (action actions.redirect (route-for 'HOME'))}}
+  Go Home
+{{/dummy/-a}}
