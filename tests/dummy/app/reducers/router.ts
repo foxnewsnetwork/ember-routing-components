@@ -23,7 +23,7 @@ const INITIAL_STATE: RouterState = {
 };
 
 interface ActivateAction extends Action {
-  key: RouteMap
+  keys: RouteMap[]
 }
 
 const xxx = (input, ...logs) => {
@@ -31,11 +31,33 @@ const xxx = (input, ...logs) => {
   return input;
 }
 
+const RouteTree = {
+  [RouteMap.APP]: {
+    [RouteMap.HOME]: {
+      [RouteMap.HOME_INDEX]: null,
+      [RouteMap.HOME_ALT]: null
+    },
+    [RouteMap.PRODUCT]: {
+      [RouteMap.PRODUCT_DETAILS]: null,
+      [RouteMap.PRODUCT_REVIEWS]: null
+    }
+  }
+};
+
+function ensureLeafs(keys: RouteMap[]): RouteMap[] {
+
+}
+
+function activateState(state: RouterState, key: RouteMap): RouterState {
+  return { ...state, [key]: true };
+}
+
 export default createReducer<RouterState>(INITIAL_STATE, {
   [ActionName.RESET_ROUTE](state: RouterState, action: Action): RouterState {
     return xxx(INITIAL_STATE, 'reducer/redux#reset', state);
   },
   [ActionName.ACTIVATE_ROUTE](state: RouterState, action: ActivateAction): RouterState {
-    return xxx({ ...state, [action.key]: true }, 'reducer/redux#activate:\n', action.key, '\nstate:\n', state);
+    const leafyKeys = ensureLeafs(action.keys);
+    return leafyKeys.reduce(activateState, state);
   }
 });
