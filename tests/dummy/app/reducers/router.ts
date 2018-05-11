@@ -1,50 +1,25 @@
 import { createReducer, Action } from 'redux-create-reducer';
-import { RouteMap } from 'dummy/helpers/route-for';
+import { RouteMap } from 'dummy/router';
 import { ActionName } from 'dummy/actions';
 
-export type RouterState = {
-  [RouteMap.APP]: boolean,
-  [RouteMap.HOME]: boolean,
-  [RouteMap.HOME_INDEX]: boolean,
-  [RouteMap.HOME_ALT]: boolean,
-  [RouteMap.PRODUCT]: boolean,
-  [RouteMap.PRODUCT_DETAILS]: boolean,
-  [RouteMap.PRODUCT_REVIEWS]: boolean
-}
+export type RouterState = RouteMap[];
+type CurrentDir = '.' | './'
+type ParentDir = '..' | '../'
+type AbsoluteDir = '/'
+type PossibleRoutePart = RouteMap | CurrentDir | ParentDir | AbsoluteDir;
 
-const INITIAL_STATE: RouterState = {
-  [RouteMap.APP]: true,
-  [RouteMap.HOME]: false,
-  [RouteMap.HOME_INDEX]: false,
-  [RouteMap.HOME_ALT]: false,
-  [RouteMap.PRODUCT]: false,
-  [RouteMap.PRODUCT_DETAILS]: false,
-  [RouteMap.PRODUCT_REVIEWS]: false,
-};
+const INITIAL_STATE: RouterState = [RouteMap.APP, RouteMap.HOME, RouteMap.HOME_INDEX];
 
 interface ActivateAction extends Action {
-  keys: RouteMap[]
+  keys: PossibleRoutePart[]
 }
 
 const xxx = (input, ...logs) => {
-  console.warn(...logs);
+  // console.warn(...logs);
   return input;
 }
 
-const RouteTree = {
-  [RouteMap.APP]: {
-    [RouteMap.HOME]: {
-      [RouteMap.HOME_INDEX]: null,
-      [RouteMap.HOME_ALT]: null
-    },
-    [RouteMap.PRODUCT]: {
-      [RouteMap.PRODUCT_DETAILS]: null,
-      [RouteMap.PRODUCT_REVIEWS]: null
-    }
-  }
-};
-
-function ensureLeafs(keys: RouteMap[]): RouteMap[] {
+function expandPath(parts: PossibleRoutePart[]): RouteMap[] {
 
 }
 
@@ -57,7 +32,6 @@ export default createReducer<RouterState>(INITIAL_STATE, {
     return xxx(INITIAL_STATE, 'reducer/redux#reset', state);
   },
   [ActionName.ACTIVATE_ROUTE](state: RouterState, action: ActivateAction): RouterState {
-    const leafyKeys = ensureLeafs(action.keys);
-    return leafyKeys.reduce(activateState, state);
+    return action.keys.reduce(activateState, state);
   }
 });

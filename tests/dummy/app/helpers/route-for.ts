@@ -1,15 +1,6 @@
 import { helper } from '@ember/component/helper';
 import { isPresent } from '@ember/utils';
-
-export enum RouteMap {
-  APP = 'ROUTER#APP',
-  HOME = 'ROUTER#HOME',
-  HOME_INDEX = 'ROUTER#HOME/INDEX',
-  HOME_ALT = 'ROUTER#HOME/ALT',
-  PRODUCT = 'ROUTER#PRODUCT',
-  PRODUCT_DETAILS = 'ROUTER#PRODUCT/DETAILS',
-  PRODUCT_REVIEWS = 'ROUTER#PRODUCT/REVIEWS'
-}
+import { RouteMap } from 'dummy/router';
 
 const KnownKeys = Object.keys(RouteMap).join(', ');
 
