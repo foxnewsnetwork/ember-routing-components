@@ -1,17 +1,17 @@
 <h2>Home</h2>
 
-{{#home.route name=(route-for 'HOME_INDEX') as |index actions|}}
-  {{#if index.isActive}}
+{{#homeS.route name=(route-for 'HOME_INDEX') as |indexS indexA|}}
+  {{#if indexS.isActive}}
     {{partial 'routes/redux/home/index'}}
   {{/if}}
-{{/home.route}}
+{{/homeS.route}}
 
-{{#home.route name=(route-for 'HOME_ALT') as |alt actions|}}
-  {{#if alt.isActive}}
+{{#homeS.route name=(route-for 'HOME_ALT') as |altS altA|}}
+  {{#if altS.isActive}}
     {{partial 'routes/redux/home/alt'}}
   {{/if}}
-{{/home.route}}
+{{/homeS.route}}
 
-{{#dummy/-a (action homeActions.redirect  '..' (route-for 'PRODUCT'))}}
+{{#dummy/-a (action homeA.redirect '..' (route-for 'PRODUCT') (route-for 'PRODUCT_INDEX'))}}
   Go Product
 {{/dummy/-a}}

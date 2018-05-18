@@ -1,10 +1,16 @@
+<h1>Application</h1>
 {{#dummy/redux-anchor as |state actions|}}
+  <ul class="debug-statement">
+    {{#each state as |path|}}
+      <li>{{path}}</li>
+    {{/each}}
+  </ul>
   {{#routing/endpoint-base
     name=(route-for 'APP')
     state=state
     checkRoute=actions.checkRoute
-    redirectRoute=actions.redirectRoute as |redux actions|}}
-    {{#if redux.isActive}}
+    redirectRoute=actions.redirectRoute as |reduxS reduxA|}}
+    {{#if reduxS.isActive}}
       {{partial 'routes/redux'}}
     {{/if}}
   {{/routing/endpoint-base}}

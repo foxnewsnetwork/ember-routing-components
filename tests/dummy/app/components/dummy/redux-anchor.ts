@@ -7,6 +7,7 @@ import { DummyState } from 'dummy/tests/dummy/app/reducers';
 import { RouterState } from 'dummy/tests/dummy/app/reducers/router';
 import { ActionName } from 'dummy/actions';
 import { RouteMap } from 'dummy/router';
+import { equal } from 'dummy/utils/array';
 
 class DummyReduxAnchor extends Component.extend({
   // anything which *must* be merged to prototype here
@@ -15,21 +16,20 @@ class DummyReduxAnchor extends Component.extend({
   layout = layout;
 };
 
-function all<X>(array: Array<X>, check: (x: X) => boolean) {
-  return array.filter(check).length === array.length;
-};
-
 const statesToCompute = (state: DummyState) => ({ state: state.router });
 
-// routeKeys = [APP, HOME, '..', PRODUCT]
 const dispatchToActions = (dispatch) => ({
-  redirectRoute(state: RouterState, ...routeKeys: RouteMap[]) {
-    dispatch({ type: ActionName.RESET_ROUTE });
-    const type = ActionName.ACTIVATE_ROUTE;
-    return routeKeys.forEach(key => dispatch({ type, key }));
+  redirectRoute(state: RouterState, ...routeKeys: (RouteMap | '..')[]) {
+    routeKeys.forEach((key) => {
+      let type = ActionName.PUSH_ROUTE;
+      if (key === '..') {
+        type = ActionName.POP_ROUTE;
+      }
+      dispatch({ type, path: key })
+    });
   },
   checkRoute(routerState: RouterState, ...routeKeys: RouteMap[]): boolean {
-    return all(routeKeys, (key) => routerState[key]);
+    return equal(routerState.slice(0, routeKeys.length), routeKeys);
   }
 });
 

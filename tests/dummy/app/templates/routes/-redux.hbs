@@ -1,13 +1,13 @@
 <h1>Redux App</h1>
 
-{{#redux.route name=(route-for 'HOME') as |home homeActions|}}
-  {{#if home.isActive}}
+{{#reduxS.route name=(route-for 'HOME') as |homeS homeA|}}
+  {{#if homeS.isActive}}
     {{partial 'routes/redux/home'}}
   {{/if}}
-{{/redux.route}}
+{{/reduxS.route}}
 
-{{#redux.route name=(route-for 'PRODUCT') as |product productActions|}}
-  {{#if product.isActive}}
+{{#reduxS.route name=(route-for 'PRODUCT') as |productS productA|}}
+  {{#if productS.isActive}}
     {{partial 'routes/redux/product'}}
   {{/if}}
-{{/redux.route}}
+{{/reduxS.route}}
