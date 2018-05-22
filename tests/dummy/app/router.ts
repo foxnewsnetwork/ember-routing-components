@@ -11,26 +11,6 @@ export enum RoutePart {
   reviews = 'reviews'
 }
 
-export const APP_TREE = route(RoutePart.app, [
-  route(RoutePart.home, [
-    route(RoutePart.index),
-    route(RoutePart.alt)
-  ]),
-  route(RoutePart.product, [
-    route(RoutePart.details),
-    route(RoutePart.reviews)
-  ])
-]);
-
-export type RouteTree = {
-  name: RoutePart,
-  children: RouteTree[]
-}
-
-function route(name: RoutePart, children: RouteTree[] = []): RouteTree {
-  return { name, children }
-}
-
 /**
  * We don't actually use the ember router,
  * but there are no conflicts, so we just
