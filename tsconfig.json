@@ -25,6 +25,15 @@
       "ember-routing-components/*": [
         "addon/*"
       ],
+      "redux": [
+        "node_modules/redux/index.d.ts"
+      ],
+      "ember-redux": [
+        "node_modules/ember-redux/index.d.ts"
+      ],
+      "redux-create-reducer": [
+        "node_modules/redux-create-reducer/index.d.ts"
+      ],
       "*": [
         "types/*"
       ]

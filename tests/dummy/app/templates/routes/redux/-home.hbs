@@ -1,0 +1,17 @@
+<h2>Home</h2>
+
+{{#homeS.route name=RoutePart.index as |indexS indexA|}}
+  {{#if indexS.isActive}}
+    {{partial 'routes/redux/home/index'}}
+  {{/if}}
+{{/homeS.route}}
+
+{{#homeS.route name=RoutePart.alt as |altS altA|}}
+  {{#if altS.isActive}}
+    {{partial 'routes/redux/home/alt'}}
+  {{/if}}
+{{/homeS.route}}
+
+{{#dummy/-a (action homeA.redirect '..' 'product' 'details')}}
+  Go Product
+{{/dummy/-a}}
