@@ -1,17 +1,17 @@
 <h2>Product</h2>
 
-{{#productS.route name=(route-for 'PRODUCT_DETAILS') as |detailsS detailsA|}}
+{{#productS.route name=RoutePart.details as |detailsS detailsA|}}
   {{#if detailsS.isActive}}
     {{partial 'routes/redux/product/details'}}
   {{/if}}
 {{/productS.route}}
 
-{{#productS.route name=(route-for 'PRODUCT_REVIEWS') as |reviewsS reviewsA|}}
+{{#productS.route name=RoutePart.reviews as |reviewsS reviewsA|}}
   {{#if reviewsS.isActive}}
     {{partial 'routes/redux/product/reviews'}}
   {{/if}}
 {{/productS.route}}
 
-{{#dummy/-a (action productA.redirect '..' (route-for 'HOME') (route-for 'HOME_INDEX'))}}
+{{#dummy/-a (action productA.redirect '..' 'home' 'index')}}
   Go Home
 {{/dummy/-a}}

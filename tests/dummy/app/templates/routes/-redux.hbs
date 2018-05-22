@@ -1,12 +1,12 @@
 <h1>Redux App</h1>
 
-{{#reduxS.route name=(route-for 'HOME') as |homeS homeA|}}
+{{#reduxS.route name=RoutePart.home as |homeS homeA|}}
   {{#if homeS.isActive}}
     {{partial 'routes/redux/home'}}
   {{/if}}
 {{/reduxS.route}}
 
-{{#reduxS.route name=(route-for 'PRODUCT') as |productS productA|}}
+{{#reduxS.route name=RoutePart.product as |productS productA|}}
   {{#if productS.isActive}}
     {{partial 'routes/redux/product'}}
   {{/if}}

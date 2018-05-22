@@ -6,7 +6,7 @@
     {{/each}}
   </ul>
   {{#routing/endpoint-base
-    name=(route-for 'APP')
+    name=RoutePart.app
     state=state
     checkRoute=actions.checkRoute
     redirectRoute=actions.redirectRoute as |reduxS reduxA|}}

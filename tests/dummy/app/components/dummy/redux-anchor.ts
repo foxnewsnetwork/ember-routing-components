@@ -6,7 +6,7 @@ import layout from '../../templates/components/dummy/redux-anchor';
 import { DummyState } from 'dummy/tests/dummy/app/reducers';
 import { RouterState } from 'dummy/tests/dummy/app/reducers/router';
 import { ActionName } from 'dummy/actions';
-import { RouteMap } from 'dummy/router';
+import { RoutePart } from 'dummy/router';
 import { equal } from 'dummy/utils/array';
 
 class DummyReduxAnchor extends Component.extend({
@@ -16,19 +16,34 @@ class DummyReduxAnchor extends Component.extend({
   layout = layout;
 };
 
+type ExtendedRoutePart = RoutePart | '..'
+
+function isRoutePart(erp: ExtendedRoutePart): erp is RoutePart {
+  return erp !== '..';
+}
+
+function toParts(extendedRouteParts: ExtendedRoutePart[]): RoutePart[] {
+  let output = [];
+  for (const part of extendedRouteParts) {
+    if (isRoutePart(part)) {
+      output.push(part);
+    } else {
+      output.pop();
+    }
+  }
+  return output;
+}
+
 const statesToCompute = (state: DummyState) => ({ state: state.router });
 
 const dispatchToActions = (dispatch) => ({
-  redirectRoute(state: RouterState, ...routeKeys: (RouteMap | '..')[]) {
-    routeKeys.forEach((key) => {
-      let type = ActionName.PUSH_ROUTE;
-      if (key === '..') {
-        type = ActionName.POP_ROUTE;
-      }
-      dispatch({ type, path: key })
+  redirectRoute(state: RouterState, ...extendedRouteParts: (RoutePart | '..')[]) {
+    dispatch({
+      type: ActionName.SET_ROUTE,
+      paths: toParts(extendedRouteParts)
     });
   },
-  checkRoute(routerState: RouterState, ...routeKeys: RouteMap[]): boolean {
+  checkRoute(routerState: RouterState, ...routeKeys: RoutePart[]): boolean {
     return equal(routerState.slice(0, routeKeys.length), routeKeys);
   }
 });

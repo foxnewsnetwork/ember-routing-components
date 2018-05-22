@@ -1,13 +1,17 @@
 import { createReducer, Action } from 'redux-create-reducer';
-import { RouteMap } from 'dummy/router';
+import { RoutePart } from 'dummy/router';
 import { ActionName } from 'dummy/actions';
 
-export type RouterState = RouteMap[];
+export type RouterState = RoutePart[];
 
-const INITIAL_STATE: RouterState = [RouteMap.APP, RouteMap.HOME, RouteMap.HOME_INDEX];
+const INITIAL_STATE: RouterState = [RoutePart.app, RoutePart.home, RoutePart.index];
 
 interface ActivateAction extends Action {
-  path: RouteMap
+  path: RoutePart
+}
+
+interface SetAction extends Action {
+  paths: RoutePart[]
 }
 
 export default createReducer<RouterState>(INITIAL_STATE, {
@@ -19,5 +23,8 @@ export default createReducer<RouterState>(INITIAL_STATE, {
   },
   [ActionName.POP_ROUTE](state: RouterState, action: Action): RouterState {
     return state.slice(0, -1);
+  },
+  [ActionName.SET_ROUTE](state: RouterState, action: SetAction): RouterState {
+    return action.paths;
   }
 });
