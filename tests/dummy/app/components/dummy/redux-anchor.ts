@@ -37,7 +37,7 @@ function toParts(extendedRouteParts: ExtendedRoutePart[]): RoutePart[] {
 const statesToCompute = (state: DummyState) => ({ state: state.router });
 
 const dispatchToActions = (dispatch) => ({
-  redirectRoute(state: RouterState, ...extendedRouteParts: (RoutePart | '..')[]) {
+  redirectRoute(state: RouterState, ...extendedRouteParts: ExtendedRoutePart[]) {
     dispatch({
       type: ActionName.SET_ROUTE,
       paths: toParts(extendedRouteParts)
