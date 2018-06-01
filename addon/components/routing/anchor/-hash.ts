@@ -1,11 +1,13 @@
 import Component from '@ember/component';
 // @ts-ignore: Ignore import of compiled template
 import layout from '../../../templates/components/routing/anchor/-hash';
-import { set, computed } from '@ember/object';
+import { set, computed, get } from '@ember/object';
 
 interface RouteParser<P> {
   (url: string): [string, P]
 }
+
+type SetURLFn = (url: string) => void;
 
 export default class RoutingAnchorHash<P> extends Component.extend({
   tagName: ''
@@ -13,25 +15,25 @@ export default class RoutingAnchorHash<P> extends Component.extend({
   layout = layout;
   // normal class body definition here
 
-  url: string;
+  hashPath: string;
+  setHash: SetURLFn = (newURL) => set(this, 'hashPath', newURL);
 
-  routePaths = computed('url', {
+  routePaths = computed('hashPath', {
     get(this: RoutingAnchorHash<P>) {
+      const hashPath = get(this, 'hashPath');
 
     }
   }).readOnly();
 
-  didInsertElement(this: RoutingAnchorHash) {
-    set(this, 'newURL', window.location.hash);
+  didInsertElement(this: RoutingAnchorHash<P>) {
     window.addEventListener('hashchange', this.onHashChange);
   }
 
-  willDestroyElement(this: RoutingAnchorHash) {
+  willDestroyElement(this: RoutingAnchorHash<P>) {
     window.removeEventListener('hashchange', this.onHashChange);
   }
 
   onHashChange = (event: HashChangeEvent) => {
-    set(this, 'newURL', event.newURL);
-    set(this, 'oldURL', event.oldURL);
+    this.setHash(event.newURL);
   }
 };
