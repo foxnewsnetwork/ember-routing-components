@@ -3,10 +3,6 @@ import Component from '@ember/component';
 import layout from '../../../templates/components/routing/anchor/-hash';
 import { set, computed, get } from '@ember/object';
 
-interface RouteParser<P> {
-  (url: string): [string, P]
-}
-
 type SetURLFn = (url: string) => void;
 
 export default class RoutingAnchorHash<P> extends Component.extend({
@@ -21,7 +17,7 @@ export default class RoutingAnchorHash<P> extends Component.extend({
   routePaths = computed('hashPath', {
     get(this: RoutingAnchorHash<P>) {
       const hashPath = get(this, 'hashPath');
-
+      return hashPath.split('/');
     }
   }).readOnly();
 
