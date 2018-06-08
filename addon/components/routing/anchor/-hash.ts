@@ -32,4 +32,14 @@ export default class RoutingAnchorHash<P> extends Component.extend({
   onHashChange = (event: HashChangeEvent) => {
     this.setHash(event.newURL);
   }
+
+  actions = {
+    redirectRoute() {
+
+    },
+
+    checkRoute() {
+
+    }
+  }
 };
