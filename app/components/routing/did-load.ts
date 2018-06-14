@@ -1,1 +1,1 @@
-export { default } from 'ember-routing-components/components/routing/did-load';
+export { default } from 'ember-routing-components/components/routing/did-load/component';

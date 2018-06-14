@@ -1,12 +1,12 @@
 import Component from '@ember/component';
 // @ts-ignore: Ignore import of compiled template
-import layout from '../../templates/components/routing/let-ponyfill';
+import layout from './template';
 
 export default class RoutingLetPonyfill extends Component.extend({
-  // anything which *must* be merged to prototype here
+  layout,
   tagName: ''
 }).reopenClass({
   positionalParams: ['output']
 }) {
-  layout = layout;
+
 };

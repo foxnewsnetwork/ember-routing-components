@@ -1,1 +1,1 @@
-export { default } from 'ember-routing-components/components/routing/let-ponyfill';
+export { default } from 'ember-routing-components/components/routing/let-ponyfill/component';

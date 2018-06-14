@@ -25,7 +25,7 @@
     "ember-cli-htmlbars": "^2.0.3"
   },
   "devDependencies": {
-    "@types/ember": "^2.8.22",
+    "@types/ember": "2.8.22",
     "@types/ember-qunit": "^3.0.1",
     "@types/ember-test-helpers": "^0.7.1",
     "@types/ember-testing-helpers": "0.0.3",
@@ -49,7 +49,6 @@
     "ember-disable-prototype-extensions": "^1.1.2",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
-    "ember-lodash-shim": "^2.0.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-native-dom-helpers": "^0.6.2",
     "ember-redux": "^3.1.1",
@@ -75,5 +74,9 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "resolutions": {
+    "@types/ember": "2.8.22",
+    "**/@types/ember": "2.8.22"
   }
 }

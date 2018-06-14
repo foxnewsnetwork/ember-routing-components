@@ -1,7 +1,6 @@
 import Component from '@ember/component';
-import { get } from '@ember/object';
 // @ts-ignore: Ignore import of compiled template
-import layout from '../../templates/components/routing/-route';
+import layout from './template';
 import { RouteLike, CheckActiveFn, RedirectFn } from 'ember-routing-components/utils/route-like';
 
 export default class RoutingRoute<ID> extends Component.extend({
