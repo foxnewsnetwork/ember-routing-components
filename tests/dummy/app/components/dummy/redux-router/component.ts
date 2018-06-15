@@ -1,19 +1,18 @@
 import { connect } from 'ember-redux';
-import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 // @ts-ignore: Ignore import of compiled template
-import layout from '../../templates/components/dummy/redux-anchor';
+import layout from './template';
 import { DummyState } from 'dummy/tests/dummy/app/reducers';
 import { RouterState } from 'dummy/tests/dummy/app/reducers/router';
 import { ActionName } from 'dummy/actions';
 import { RoutePart } from 'dummy/router';
 import { equal } from 'dummy/utils/array';
 
-class DummyReduxAnchor extends Component.extend({
+class DummyReduxRouter extends Component.extend({
+  layout,
   // anything which *must* be merged to prototype here
   tagName: ''
 }) {
-  layout = layout;
 };
 
 type ExtendedRoutePart = RoutePart | '..'
@@ -48,4 +47,4 @@ const dispatchToActions = (dispatch) => ({
   }
 });
 
-export default connect(statesToCompute, dispatchToActions)(DummyReduxAnchor);
+export default connect(statesToCompute, dispatchToActions)(DummyReduxRouter);

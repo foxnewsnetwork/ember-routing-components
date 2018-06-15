@@ -1,21 +1,17 @@
 import Component from '@ember/component';
 // @ts-ignore: Ignore import of compiled template
-import layout from '../../templates/components/dummy/-a';
+import layout from './template';
 import { get } from '@ember/object';
 import { tryInvoke } from '@ember/utils';
 
 export default class DummyA extends Component.extend({
-  // anything which *must* be merged to prototype here
+  layout,
   tagName: 'button',
-  classNames: ['dummy-link-to']
+  classNames: ['dummy-link-to'],
+  attributeBindings: ['disabled']
 }).reopenClass({
   positionalParams: ['action']
 }) {
-  layout = layout;
-  // normal class body definition here
-
-  attributeBindings = ['disabled'];
-
   disabled: boolean = false;
 
   action: () => Promise<void>;
