@@ -5,7 +5,7 @@
       <li>{{path}}</li>
     {{/each}}
   </ul>
-  {{#routing/endpoint-base
+  {{#routing/router-base
     name=RoutePart.app
     state=state
     checkRoute=actions.checkRoute
@@ -13,5 +13,5 @@
     {{#if reduxS.isActive}}
       {{partial 'routes/redux'}}
     {{/if}}
-  {{/routing/endpoint-base}}
+  {{/routing/router-base}}
 {{/dummy/redux-anchor}}

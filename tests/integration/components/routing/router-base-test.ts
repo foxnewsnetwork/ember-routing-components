@@ -5,7 +5,7 @@ import hbs from 'htmlbars-inline-precompile';
 import { TestContext } from 'ember-test-helpers';
 
 type ConsumeResult = [boolean, string];
-const consume = (fullstr: string, substr: string): ConsumeResult => 
+const consume = (fullstr: string, substr: string): ConsumeResult =>
   [fullstr.startsWith(substr), fullstr.substr(substr.length)];
 
 function consumeCheck(res: ConsumeResult, substr: string): ConsumeResult {
@@ -14,7 +14,7 @@ function consumeCheck(res: ConsumeResult, substr: string): ConsumeResult {
   return [isFail && nextFail, nextStr];
 }
 
-module('Integration | Component | routing/endpoint-base', function(hooks) {
+module('Integration | Component | routing/router-base', function(hooks) {
   setupRenderingTest(hooks);
 
   module('simple usage', (hooks) => {
@@ -28,34 +28,34 @@ module('Integration | Component | routing/endpoint-base', function(hooks) {
       });
       this.set('redirectRoute', (state, appRoute, routeId) => this.set('state', routeId));
       await render(hbs`
-        {{#routing/endpoint-base name='' state=state checkRoute=checkRoute redirectRoute=redirectRoute as |app actions|}}
+        {{#routing/router-base name='' state=state checkRoute=checkRoute redirectRoute=redirectRoute as |app actions|}}
           {{#app.route name='dog' as |dog|}}
             {{#if dog.isActive}}
               <h1>Dog Content-{{state}}</h1>
-  
+
               {{#if goCat}}
                 {{app.redirect to='cat'}}
               {{/if}}
             {{/if}}
           {{/app.route}}
-  
+
           {{#app.route name='cat' as |cat|}}
             {{#if cat.isActive}}
               <h1>Cat Content-{{state}}</h1>
-  
+
               {{#if goDog}}
                 {{app.redirect to='dog'}}
               {{/if}}
             {{/if}}
           {{/app.route}}
-        {{/routing/endpoint-base}}
+        {{/routing/router-base}}
       `);
     });
-  
+
     test('it starts out on dog', async function(assert) {
       assert.equal(this.element.textContent.trim(), 'Dog Content-dog');
     });
-  
+
     module('redirect', (hooks) => {
       let result;
       hooks.beforeEach(function(this: TestContext) {
