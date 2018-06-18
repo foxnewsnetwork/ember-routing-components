@@ -3,7 +3,7 @@ import Component from '@ember/component';
 import layout from './template';
 import { CheckRouteFn, RedirectRouteFn } from 'ember-routing-components/utils/route-like';
 
-export default class RoutingEndpointBase<T, ID> extends Component.extend({
+export default class BaseRouterComponent<T, ID> extends Component.extend({
   layout,
   tagName: ''
 }) {
