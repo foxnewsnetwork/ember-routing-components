@@ -1,1 +1,7 @@
-{{yield}}
+{{yield
+  state
+  (hash
+    redirectRoute=(action 'redirectRoute')
+    checkRoute=(action 'checkRoute')
+  )
+}}
