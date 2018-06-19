@@ -9,13 +9,22 @@ import { getOwner } from '@ember/application';
 import Route from '@ember/routing/route';
 import { computed, get } from '@ember/object';
 import { tails } from 'ember-routing-components/utils/keys';
+import { equal } from 'ember-routing-components/utils/array';
+
+function matchName(x: RoutePart, y: RoutePart) {
+  return x.routeName === x.routeName;
+}
 
 const actions = {
-  redirectRoute(state: RoutePart[], ...routeParts: RoutePart[]) {
+  redirectRoute(router: EmberRouter, state: RoutePart[], ...routeParts: RoutePart[]) {
+    const routeName = routeParts.map((x) => x.routeName).join('.');
+    const models = routeParts.map((x) => x.params);
 
+    router.transitionTo(routeName, models);
   },
   checkRoute(state: RoutePart[], ...routeParts: RoutePart[]) {
-
+    const relevantParts = state.slice(0, routeParts.length);
+    return equal(relevantParts, routeParts, matchName);
   }
 };
 
@@ -35,6 +44,7 @@ type RoutePart = {
 
 export default class RoutingEmberRouter extends Component.extend({
   layout,
+  actions,
   tagName: '',
   router: service('router'),
   currentRouteName: readOnly('router', 'currentRouteName'),
