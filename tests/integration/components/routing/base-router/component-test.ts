@@ -14,7 +14,7 @@ function consumeCheck(res: ConsumeResult, substr: string): ConsumeResult {
   return [isFail && nextFail, nextStr];
 }
 
-module('Integration | Component | routing/router-base', function(hooks) {
+module('Integration | Component | routing/base-router', function(hooks) {
   setupRenderingTest(hooks);
 
   module('simple usage', (hooks) => {
@@ -28,7 +28,7 @@ module('Integration | Component | routing/router-base', function(hooks) {
       });
       this.set('redirectRoute', (state, appRoute, routeId) => this.set('state', routeId));
       await render(hbs`
-        {{#routing/router-base name='' state=state checkRoute=checkRoute redirectRoute=redirectRoute as |app actions|}}
+        {{#routing/base-router name='' state=state checkRoute=checkRoute redirectRoute=redirectRoute as |app actions|}}
           {{#app.route name='dog' as |dog|}}
             {{#if dog.isActive}}
               <h1>Dog Content-{{state}}</h1>
@@ -48,7 +48,7 @@ module('Integration | Component | routing/router-base', function(hooks) {
               {{/if}}
             {{/if}}
           {{/app.route}}
-        {{/routing/router-base}}
+        {{/routing/base-router}}
       `);
     });
 
