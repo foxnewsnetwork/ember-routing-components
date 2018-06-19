@@ -1,7 +1,9 @@
 {{yield
-  state
   (hash
-    redirectRoute=(action 'redirectRoute')
-    checkRoute=(action 'checkRoute')
+    state=currentRouteParts
+  )
+  (hash
+    redirectRoute=(action 'redirectRoute' router currentRouteParts)
+    checkRoute=(action 'checkRoute' currentRouteParts)
   )
 }}
