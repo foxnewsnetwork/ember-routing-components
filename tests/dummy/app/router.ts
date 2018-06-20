@@ -22,6 +22,11 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function () {
+  this.route('way-of-the-kings', function() {
+    this.route('words-of-radiance', { path: 'words-of-radiance/:id' }, function() {
+      this.route('oathbringer', { path: 'oathbringer/:id' });
+    });
+  });
 });
 
 export default Router;
